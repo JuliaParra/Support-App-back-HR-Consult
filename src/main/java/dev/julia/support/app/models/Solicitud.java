@@ -7,59 +7,80 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-
 @Entity
-
 public class Solicitud {
+
+ 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    
+ 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String nombre;
+    private LocalDateTime fecha;
+    private String tema;
+    private String descripcion;
+    private boolean completada;
+
+    public Solicitud() {}
+
+
+  
+
+    public Solicitud(Long id, String nombre, LocalDateTime fecha, String tema, String descripcion, boolean completada) {
+        this.id = id;
+        this.nombre = nombre;
+        this.fecha = fecha;
+        this.tema = tema;
+        this.descripcion = descripcion;
+        this.completada = completada;
+    }
+
 
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
-    private String name;
-    
-    public String getName() {
-        return name;
+
+    public String getNombre() {
+        return nombre;
     }
-    public void setName(String name) {
-        this.name = name;
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
-    private LocalDateTime fecha;
 
     public LocalDateTime getFecha() {
         return fecha;
     }
+
     public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
-    private String tema;
-    
+
     public String getTema() {
         return tema;
     }
+
     public void setTema(String tema) {
         this.tema = tema;
     }
-    private String descripcion;
 
     public String getDescripcion() {
         return descripcion;
     }
+
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    private  boolean completado;
 
-    public boolean isCompletado() {
-        return completado;
+    public boolean isCompletada() {
+        return completada;
     }
-    public void setCompletado(boolean completado) {
-        this.completado = completado;
+
+    public void setCompletada(boolean completada) {
+        this.completada = completada;
     }
 }
