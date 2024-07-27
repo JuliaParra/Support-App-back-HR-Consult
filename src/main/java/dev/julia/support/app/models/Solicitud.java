@@ -15,6 +15,7 @@ public class Solicitud {
  
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nombre;
     private LocalDateTime fecha;
     private String tema;
@@ -23,11 +24,8 @@ public class Solicitud {
 
     public Solicitud() {}
 
-
-  
-
-    public Solicitud(Long id, String nombre, LocalDateTime fecha, String tema, String descripcion, boolean completada) {
-        this.id = id;
+    
+    public Solicitud(String nombre, LocalDateTime fecha, String tema, String descripcion, boolean completada) {
         this.nombre = nombre;
         this.fecha = fecha;
         this.tema = tema;
@@ -35,6 +33,7 @@ public class Solicitud {
         this.completada = completada;
     }
 
+  
 
     public Long getId() {
         return id;

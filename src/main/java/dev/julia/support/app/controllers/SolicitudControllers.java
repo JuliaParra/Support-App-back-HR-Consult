@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import dev.julia.support.app.models.Solicitud;
 import dev.julia.support.app.services.SolicitudService;
 
+
 @RestController
 @RequestMapping("/api/solicitud")
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:5173")
+
 public class SolicitudControllers {
 
 
