@@ -82,4 +82,17 @@ public class Solicitud {
     public void setCompletada(boolean completada) {
         this.completada = completada;
     }
+
+
+    public Solicitud(Long id, String nombre, LocalDateTime fecha, String tema, String descripcion, boolean completada) {
+        this.id = id;
+        this.nombre = nombre;
+        this.fecha = fecha;
+        this.tema = tema;
+        this.descripcion = descripcion;
+        this.completada = completada;
+    }
+
+
+  
 }

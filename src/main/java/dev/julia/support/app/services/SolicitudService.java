@@ -7,19 +7,15 @@ import org.springframework.stereotype.Service;
 import dev.julia.support.app.models.Solicitud;
 import dev.julia.support.app.repositories.SolicitudRepository;
 
-
-
 @Service
 public class SolicitudService {
 
     private final SolicitudRepository solicitudRepository;
 
-
     public SolicitudService(SolicitudRepository solicitudRepository) {
         this.solicitudRepository = solicitudRepository;
-
     }
-    
+
     public List<Solicitud> findAll() {
         return solicitudRepository.findAll();
     }
@@ -34,5 +30,10 @@ public class SolicitudService {
 
     public void deleteById(Long id) {
         solicitudRepository.deleteById(id);
+    }
+
+    // Implementación correcta del método findByNombre
+    public List<Solicitud> findByNombre(String nombre) {
+        return solicitudRepository.findByNombreContainingIgnoreCase(nombre);
     }
 }

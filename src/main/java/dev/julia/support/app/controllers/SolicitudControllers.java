@@ -1,11 +1,8 @@
-
-
 package dev.julia.support.app.controllers;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,34 +11,40 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.julia.support.app.models.Solicitud;
 import dev.julia.support.app.services.SolicitudService;
 
-
 @RestController
 @RequestMapping("/api/solicitud")
 @CrossOrigin(origins = "http://localhost:5173")
-
 public class SolicitudControllers {
 
+    private final SolicitudService solicitudService;
 
-    @Autowired
-    public void SolicitudController(SolicitudService solicitudService) {
+    // Constructor con inyección de dependencia
+    public SolicitudControllers(SolicitudService solicitudService) {
         this.solicitudService = solicitudService;
     }
 
     @GetMapping
-    public List<Solicitud> getAllSolicitudes() {
-        return solicitudService.findAll();
+    public List<Solicitud> getSolicitudes(@RequestParam(required = false) Long id, 
+                                          @RequestParam(required = false) String nombre) {
+        if (id != null) {
+            // Filtra por ID si se proporciona
+            Solicitud solicitud = solicitudService.findById(id);
+            return solicitud != null ? List.of(solicitud) : List.of();
+        } else if (nombre != null && !nombre.isEmpty()) {
+            // Filtra por nombre si se proporciona
+            return solicitudService.findByNombre(nombre);
+        } else {
+            // Devuelve todas las solicitudes si no se proporcionan filtros
+            return solicitudService.findAll();
+        }
     }
-
-    @GetMapping("/{id}")
-    public Solicitud getSolicitudById(@PathVariable Long id) {
-        return solicitudService.findById(id);
-    }
-
+    
     @PostMapping
     public Solicitud createSolicitud(@RequestBody Solicitud solicitud) {
         solicitud.setFecha(LocalDateTime.now());
@@ -58,18 +61,11 @@ public class SolicitudControllers {
             existingSolicitud.setCompletada(solicitud.isCompletada());
             return solicitudService.save(existingSolicitud);
         }
-        return null; 
+        return null; // Considera lanzar una excepción o retornar un 404
     }
 
     @DeleteMapping("/{id}")
     public void deleteSolicitud(@PathVariable Long id) {
         solicitudService.deleteById(id);
     }
-
-    
-    public SolicitudControllers(SolicitudService solicitudService) {
-        this.solicitudService = solicitudService;
-    }
-
-    private SolicitudService solicitudService = null;
 }
